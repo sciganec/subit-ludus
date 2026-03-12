@@ -1420,7 +1420,7 @@ return(<div style={{marginBottom:12}}>
       <FilterTooltip items={[["🌑 Я (ME)","Внутрішній, самотній"],["🌓 Ти (YOU)","Звернений до Іншого"],["🌕 Ми (WE)","Колективний, спільний"],["🌒 Вони (THEY)","Зовнішній, безликий"]]} col="#e06060"/>
 
     </div>
-    <div style={{display:_fl,gap:4,flexWrap:"wrap"}}>{WHO_VALS.map(v=>(<FilterBtn key={v} label={WHO_UA[v]} active={filterWho===v} col={`hsl(${WHO_HUE[v]},60%,58%)`} onClick={()=>{setFilterWho(p=>p===v?null:v);setGridExpanded(true);}} whoVal={v}/>))}</div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:5}}>{WHO_VALS.map(v=>{const col=`hsl(${WHO_HUE[v]},60%,58%)`;const active=filterWho===v;const sym={ME:"⬠",WE:"⬡",YOU:"▱",THEY:"○"}[v];return(<button key={v} onClick={()=>{setFilterWho(p=>p===v?null:v);setGridExpanded(true);}} style={{background:active?col+"22":"#09080200",border:"1.5px solid "+(active?col:"#2a1c0a"),borderRadius:10,padding:"8px 4px",cursor:_fc,textAlign:"center",transition:"all .15s",boxShadow:active?"0 0 10px "+col+"44":"none"}}><div style={{fontSize:18,marginBottom:3,filter:active?"drop-shadow(0 0 6px "+col+")":"none",transition:"filter .2s"}}>{sym}</div><div style={{fontSize:11,fontWeight:active?700:400,color:active?col:"#a07040",fontFamily:_mo,lineHeight:1.2}}>{WHO_UA[v]}</div></button>);})}</div>
   </div>
   {/* ─ ДЕ — always available */}
   <div style={{marginBottom:6}}>
@@ -1430,7 +1430,7 @@ return(<div style={{marginBottom:12}}>
       <FilterTooltip items={[["❄️ Північ (N)","Холод, порожнеча, витік"],["🌅 Схід (E)","Початок, народження"],["🌇 Захід (W)","Завершення, мудрість"],["☀️ Південь (S)","Жар, кульмінація"]]} col="#7dcfff"/>
       {stageIdx===1&&<span style={{fontSize:10,color:"#7dcfff",fontFamily:"monospace",marginLeft:"auto",background:"#07141e",border:"1px solid #7dcfff33",borderRadius:4,padding:"1px 5px"}}>✨ нове</span>}
     </div>
-    <div style={{display:_fl,gap:4,flexWrap:"wrap"}}>{WHERE_VALS.map(v=>{const sat={NORTH:36,WEST:50,EAST:64,SOUTH:74}[v];return(<FilterBtn key={v} label={WHERE_UA[v]} active={filterWhere===v} col={`hsl(200,${sat}%,58%)`} onClick={()=>{setFilterWhere(p=>p===v?null:v);setGridExpanded(true);}}/>);})}</div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:5}}>{WHERE_VALS.map(v=>{const sat={NORTH:36,WEST:50,EAST:64,SOUTH:74}[v];const col=`hsl(200,${sat}%,58%)`;const active=filterWhere===v;const sym={NORTH:"❄",EAST:"🌅",WEST:"🌇",SOUTH:"☀"}[v];return(<button key={v} onClick={()=>{setFilterWhere(p=>p===v?null:v);setGridExpanded(true);}} style={{background:active?col+"22":"#09080200",border:"1.5px solid "+(active?col:"#2a1c0a"),borderRadius:10,padding:"8px 4px",cursor:_fc,textAlign:"center",transition:"all .15s",boxShadow:active?"0 0 10px "+col+"44":"none"}}><div style={{fontSize:16,marginBottom:3}}>{sym}</div><div style={{fontSize:11,fontWeight:active?700:400,color:active?col:"#a07040",fontFamily:_mo,lineHeight:1.2}}>{WHERE_UA[v]}</div></button>);})}</div>
   </div>
   {/* ─ КОЛИ — always available */}
   <div>
@@ -1440,7 +1440,7 @@ return(<div style={{marginBottom:12}}>
       <FilterTooltip items={[["❄️ Зима","Сплячка, прихована сила"],["🌱 Весна","Пробудження, надія"],["☀️ Літо","Розквіт, зеніт"],["🍂 Осінь","Жнива, прощання"]]} col="#4ade80"/>
       {stageIdx===1&&<span style={{fontSize:10,color:"#4ade80",fontFamily:"monospace",marginLeft:"auto",background:"#041a0888",border:"1px solid #4ade8033",borderRadius:4,padding:"1px 5px"}}>✨ нове</span>}
     </div>
-    <div style={{display:_fl,gap:4,flexWrap:"wrap"}}>{WHEN_VALS.map(v=>{const lit={WINTER:32,SPRING:52,SUMMER:62,AUTUMN:42}[v];return(<FilterBtn key={v} label={WHEN_UA[v]} active={filterWhen===v} col={`hsl(35,70%,${lit+20}%)`} onClick={()=>{setFilterWhen(p=>p===v?null:v);setGridExpanded(true);}}/>);})}</div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:5}}>{WHEN_VALS.map(v=>{const lit={WINTER:32,SPRING:52,SUMMER:62,AUTUMN:42}[v];const col=`hsl(35,70%,${lit+20}%)`;const active=filterWhen===v;const sym={WINTER:"❄",SPRING:"🌱",SUMMER:"☀",AUTUMN:"🍂"}[v];return(<button key={v} onClick={()=>{setFilterWhen(p=>p===v?null:v);setGridExpanded(true);}} style={{background:active?col+"22":"#09080200",border:"1.5px solid "+(active?col:"#2a1c0a"),borderRadius:10,padding:"8px 4px",cursor:_fc,textAlign:"center",transition:"all .15s",boxShadow:active?"0 0 10px "+col+"44":"none"}}><div style={{fontSize:16,marginBottom:3}}>{sym}</div><div style={{fontSize:11,fontWeight:active?700:400,color:active?col:"#a07040",fontFamily:_mo,lineHeight:1.2}}>{WHEN_UA[v]}</div></button>);})}</div>
   </div>
 </div>
 
@@ -1498,46 +1498,138 @@ return(<div style={{…baseStyle,background:`radial-gradient(ellipse at 50% 30%,
 
 function ArchLegend({onClose}){
 useEscClose(onClose);
-const examples=[
-{who:“00”,where:“00”,when:“00”,label:“THEY·NORTH·WINTER”,note:“Коло, холодна текстура, повільний пульс”},
-{who:“10”,where:“11”,when:“11”,label:“ME·SOUTH·SUMMER”,note:“П’ятикутник, теплий центр, швидкий пульс”},
-{who:“11”,where:“01”,when:“10”,label:“WE·WEST·SPRING”,note:“Шестикутник, вечірні лінії, жвавий пульс”},
-{who:“01”,where:“10”,when:“01”,label:“YOU·EAST·AUTUMN”,note:“Трапеція, ранкові смуги, бурштинне сяйво”},
-];
-return(<div style={{position:_fix,inset:0,background:“rgba(2,1,0,.88)”,zIndex:460,display:_fl,alignItems:“flex-end”}} onClick={onClose}>
-<div onClick={e=>e.stopPropagation()} style={{width:_100,maxWidth:480,margin:“0 auto”,background:“linear-gradient(160deg,#1e1608,#100c04)”,borderRadius:“22px 22px 0 0”,border:“1px solid #c8900a33”,padding:“18px 14px 28px”,animation:“sheetIn .3s cubic-bezier(.32,.72,0,1)”,boxShadow:“0 -8px 40px rgba(0,0,0,.8)”}}>
-<div style={{width:34,height:4,background:”#c8900a55”,borderRadius:2,margin:“0 auto 14px”}}/>
-<div style={{textAlign:_tc,marginBottom:14}}>
-<div style={{fontSize:13,color:”#e8c040”,fontWeight:_fw,fontFamily:_gs,letterSpacing:1}}>🔍 МОВА АРХЕТИПІВ</div>
-<div style={{fontSize:13,color:”#c09050”,fontStyle:_fi,marginTop:3}}>Кожен біт несе сенс</div>
+const[hover,setHover]=useState(null);
+
+// Polar coords: WHO → quadrant (0/1/2/3 × 90°)
+// WHERE → angle offset within quadrant (0/1/2/3 × 20°)
+// WHEN → ring radius (4 rings)
+const WHO_Q ={ME:0,WE:1,YOU:2,THEY:3};
+const WHERE_OFF={NORTH:0,EAST:1,SOUTH:2,WEST:3};
+const WHEN_R ={WINTER:0,AUTUMN:1,SPRING:2,SUMMER:3};
+const RINGS=[52,72,92,112];
+const CX=140,CY=140,SZ=280;
+
+const nodes=ALL.map(arch=>{
+const q=WHO_Q[arch.who];
+const off=WHERE_OFF[arch.where];
+const ring=WHEN_R[arch.when];
+const baseDeg=q*90;
+const offsetDeg=off*20+10; // 10–70 inside each 90° quadrant
+const deg=baseDeg+offsetDeg;
+const rad=deg*Math.PI/180;
+const r=RINGS[ring];
+const x=CX+r*Math.cos(rad);
+const y=CY+r*Math.sin(rad);
+const col=ac(arch.who,arch.where,arch.when);
+return{…arch,x,y,col,deg,r};
+});
+
+const h=hover?ga(hover):null;
+const hCol=h?ac(h.who,h.where,h.when):”#c8900a”;
+
+return(<div style={{position:_fix,inset:0,background:“rgba(2,1,0,.94)”,zIndex:460,display:_fl,alignItems:“flex-end”}} onClick={onClose}>
+<div onClick={e=>e.stopPropagation()} style={{width:_100,maxWidth:480,margin:“0 auto”,background:“linear-gradient(160deg,#0e0c04,#080601)”,borderRadius:“22px 22px 0 0”,border:“1px solid #c8900a33”,padding:“16px 14px 24px”,animation:“sheetIn .3s cubic-bezier(.32,.72,0,1)”,boxShadow:“0 -8px 40px rgba(0,0,0,.9)”}}>
+<div style={{width:34,height:4,background:”#c8900a55”,borderRadius:2,margin:“0 auto 12px”}}/>
+<div style={{textAlign:_tc,marginBottom:10}}>
+<div style={{fontSize:13,color:”#e8c040”,fontWeight:_fw,fontFamily:_gs,letterSpacing:1}}>✦ МАНДАЛА АРХЕТИПІВ</div>
+<div style={{fontSize:11,color:”#806030”,fontFamily:_mo,marginTop:2,letterSpacing:1}}>64 АРХЕТИПИ · XOR ПРОСТІР</div>
 </div>
-<div style={{display:“grid”,gridTemplateColumns:“1fr 1fr 1fr”,gap:8,marginBottom:14,background:”#0c0a04”,borderRadius:10,padding:10}}>
-{[[“Форма”,“WHO (біти 1-2)”,“○ ВОНИ · ▱ ТИ · ⬠ Я · ⬡ МИ”,”#7dcfff”],
-[“Текстура”,“WHERE (біти 3-4)”,“Холод · Іскри · Смуги · Спека”,”#f0c860”],
-[“Пульс”,“WHEN (біти 5-6)”,“Повільний→Швидкий за сезоном”,”#4ade80”]
-].map(([title,sub,desc,col])=>(<div key={title} style={{textAlign:_tc,padding:“8px 4px”}}>
-<div style={{fontSize:13,fontWeight:_fw,color:col,fontFamily:_mo,marginBottom:3}}>{title}</div>
-<div style={{fontSize:11.5,color:”#c8900a”,marginBottom:4}}>{sub}</div>
-<div style={{fontSize:11,color:”#c09050”,lineHeight:1.4,fontStyle:_fi}}>{desc}</div>
-</div>))}
+
+```
+  {/* Legend row */}
+  <div style={{display:_fl,justifyContent:_jc,gap:10,marginBottom:8,flexWrap:"wrap"}}>
+    {[["МЕ →","right","#4ade80"],["МИ ↓","down","#c8900a"],["ТИ ←","left","#7dcfff"],["ВОНИ ↑","up","#c084fc"]].map(([lbl,,col])=>(
+      <span key={lbl} style={{fontSize:10,color:col,fontFamily:_mo,background:col+"18",borderRadius:4,padding:"2px 6px",border:`1px solid ${col}44`}}>{lbl}</span>
+    ))}
+    <span style={{fontSize:10,color:"#888",fontFamily:_mo}}>|</span>
+    {[["❄ Зима","inner"],["🍂 Осінь",""],["🌱 Весна",""],["☀ Літо","outer"]].map(([lbl])=>(
+      <span key={lbl} style={{fontSize:10,color:"#a07840",fontFamily:_mo}}>{lbl}</span>
+    ))}
+  </div>
+
+  {/* SVG Mandala */}
+  <div style={{display:_fl,justifyContent:_jc,position:_rel}}>
+    <svg width={SZ} height={SZ} viewBox={`0 0 ${SZ} ${SZ}`} style={{display:"block",overflow:"visible"}}>
+      {/* ring guides */}
+      {RINGS.map((r,i)=>(
+        <circle key={i} cx={CX} cy={CY} r={r} fill="none"
+          stroke="#c8900a" strokeWidth=".5" strokeDasharray="2 6"
+          opacity={.15+i*.04}/>
+      ))}
+      {/* quadrant axes */}
+      {[0,90,180,270].map(deg=>{
+        const rad=deg*Math.PI/180;
+        return<line key={deg}
+          x1={CX} y1={CY}
+          x2={CX+(RINGS[3]+18)*Math.cos(rad)}
+          y2={CY+(RINGS[3]+18)*Math.sin(rad)}
+          stroke="#c8900a" strokeWidth=".5" opacity=".12"/>;
+      })}
+      {/* quadrant labels */}
+      {[[0,"МЕ →"],[90,"МИ ↓"],[180,"← ТИ"],[270,"↑ ВОНИ"]].map(([deg,lbl])=>{
+        const rad=(deg+45)*Math.PI/180;
+        const r=RINGS[3]+20;
+        return<text key={deg}
+          x={CX+r*Math.cos(rad)} y={CY+r*Math.sin(rad)}
+          textAnchor="middle" dominantBaseline="middle"
+          fill="#c8900a" fillOpacity=".4"
+          fontSize="8" fontFamily="monospace">{lbl}</text>;
+      })}
+      {/* centre */}
+      <circle cx={CX} cy={CY} r={10} fill="#c8900a" fillOpacity=".08"
+        stroke="#c8900a" strokeWidth="1" strokeOpacity=".3"/>
+      <text x={CX} y={CY} textAnchor="middle" dominantBaseline="middle"
+        fill="#c8900a" fillOpacity=".5" fontSize="10" fontFamily="monospace">⊕</text>
+      {/* nodes */}
+      {nodes.map(n=>{
+        const isH=hover===n.bin;
+        const r=isH?6:4;
+        return(
+          <g key={n.bin} style={{cursor:"pointer"}}
+            onMouseEnter={()=>setHover(n.bin)}
+            onMouseLeave={()=>setHover(null)}
+            onClick={e=>{e.stopPropagation();setHover(v=>v===n.bin?null:n.bin);}}>
+            {isH&&<circle cx={n.x} cy={n.y} r={12} fill={n.col} fillOpacity=".12"/>}
+            <circle cx={n.x} cy={n.y} r={r}
+              fill={n.col} fillOpacity={isH?1:.65}
+              stroke={n.col} strokeWidth={isH?"1.5":"0"}
+              strokeOpacity={isH?1:0}/>
+          </g>
+        );
+      })}
+      {/* hovered connector line to centre */}
+      {hover&&(()=>{
+        const n=nodes.find(x=>x.bin===hover);
+        if(!n)return null;
+        return<line x1={CX} y1={CY} x2={n.x} y2={n.y}
+          stroke={n.col} strokeWidth=".8" strokeOpacity=".4"
+          strokeDasharray="3 4"/>;
+      })()}
+    </svg>
+  </div>
+
+  {/* Hovered archetype info */}
+  <div style={{minHeight:64,marginTop:6,padding:"10px 12px",background:"#09080255",
+    border:`1px solid ${hCol}33`,borderRadius:12,transition:"border-color .2s",textAlign:_tc}}>
+    {h?(
+      <div style={{animation:"fadeIn .2s ease"}}>
+        <div style={{fontSize:15,fontWeight:_fw,color:hCol,fontFamily:_gs,marginBottom:3}}>{h.name}</div>
+        <div style={{fontSize:11,color:hCol+"99",fontFamily:_mo,marginBottom:4,letterSpacing:.5}}>
+          {h.bin} · {WHO_UA[h.who]} · {WHERE_UA[h.where]} · {WHEN_UA[h.when]}
+        </div>
+        <div style={{fontSize:11.5,color:"#b09050",fontFamily:_gs,fontStyle:_fi,lineHeight:1.5}}>
+          {h.key}
+        </div>
+      </div>
+    ):(
+      <div style={{fontSize:12,color:"#4a3818",fontFamily:_gs,fontStyle:_fi}}>
+        Торкнись архетипу щоб побачити
+      </div>
+    )}
+  </div>
+
 </div>
-<div style={{display:“grid”,gridTemplateColumns:“1fr 1fr”,gap:6}}>
-{examples.map(ex=>{
-const bin=ex.who+ex.where+ex.when;
-const col=ac(WHO_MAP[ex.who],WHERE_MAP[ex.where],WHEN_MAP[ex.when]);
-const clip=getArchClip({bin,who:WHO_MAP[ex.who],where:WHERE_MAP[ex.where],when:WHEN_MAP[ex.when]});
-return(<div key={bin} style={{background:_col,border:`1px solid ${col}33`,borderRadius:10,padding:“8px”,display:_fl,gap:8,alignItems:_ac}}>
-<div style={{width:28,height:28,flexShrink:0,position:_rel}}>
-<div style={{position:_abs,inset:0,background:col,clipPath:clip,opacity:.7}}/>
-</div>
-<div>
-<div style={{fontSize:11.5,color:col,fontFamily:_mo,fontWeight:_fw,marginBottom:1}}>{ex.label}</div>
-<div style={{fontSize:11,color:”#b07840”,fontStyle:_fi,lineHeight:1.3}}>{ex.note}</div>
-</div>
-</div>);
-})}
-</div>
-</div>
+```
 
   </div>);
 }
@@ -2318,52 +2410,160 @@ return(<div style={{position:_fix,top:78,left:“50%”,transform:“translateX(
   </div>);
 }
 const INTRO_TEXT="Ви — останній учень згаслої алхімічної школи.\n\nВаш вчитель перед смертю передав вам таємний манускрипт. В ньому — шлях до Великого Діяння і безсмертя.\n\n«Пам'ятай, — прошепотів він, — справжня алхімія відбувається не в ретортах, а в душі алхіміка.»\n\nПопереду — десять стадій Magnum Opus.";
+// ── XOR Live Visualizer (used in IntroScreen) ─────────────────────────────────
+function XorLiveViz(){
+  const CYCLE_MS=2200;
+  const pickRandom=()=>Math.floor(Math.random()*64);
+  const[idxs,setIdxs]=useState(()=>[pickRandom(),pickRandom(),pickRandom()]);
+  const[phase,setPhase]=useState(0); // 0=A fading, 1=B, 2=C
+  const[flash,setFlash]=useState(false);
+
+useEffect(()=>{
+const t=setInterval(()=>{
+setPhase(p=>{
+const next=(p+1)%3;
+setIdxs(prev=>{const n=[…prev];n[next]=pickRandom();return n;});
+if(next===2)setTimeout(()=>setFlash(true),400);
+else setFlash(false);
+return next;
+});
+},CYCLE_MS);
+return()=>clearInterval(t);
+},[]);
+
+const a=ALL[idxs[0]],b=ALL[idxs[1]],c=ALL[idxs[2]];
+const ab=xorBin(a.bin,b.bin);
+const abc=xorBin(ab,c.bin);
+const res=ga(abc);
+const colA=ac(a.who,a.where,a.when);
+const colB=ac(b.who,b.where,b.when);
+const colC=ac(c.who,c.where,c.when);
+const colR=ac(res.who,res.where,res.when);
+
+const Dot=({on,hi})=>(
+<span style={{display:“inline-flex”,alignItems:_ac,justifyContent:_jc,
+width:14,height:14,borderRadius:3,
+background:on?hi+“2a”:“transparent”,
+border:`1px solid ${on?hi+"99":"#2a1c0a"}`,
+fontSize:10,color:on?hi:”#3a2810”,fontFamily:_mo,fontWeight:on?700:400,
+transition:“all .25s”,flexShrink:0}}>
+{on?“1”:“0”}
+</span>
+);
+
+const Row=({label,bin,col,op,dim})=>(
+<div style={{display:_fl,alignItems:_ac,gap:4,opacity:dim?.35:1,transition:“opacity .3s”}}>
+<span style={{fontSize:10,color:dim?”#3a2810”:col,fontFamily:_mo,width:22,
+textAlign:“right”,flexShrink:0,fontWeight:dim?400:600}}>{label}</span>
+<div style={{display:_fl,gap:2}}>
+{bin.split(””).map((bit,i)=><Dot key={i} on={bit===“1”} hi={col}/>)}
+</div>
+{op&&<span style={{fontSize:11,color:”#4a3818”,fontFamily:_mo,marginLeft:1}}>{op}</span>}
+<span style={{fontSize:10,color:dim?”#3a2810”:col+“cc”,fontFamily:_gs,
+fontStyle:_fi,marginLeft:4,whiteSpace:“nowrap”,overflow:“hidden”,
+textOverflow:“ellipsis”,maxWidth:80}}>{dim?”·····”:label===”=”?res.name:label===“A⊕B”?””:””}</span>
+</div>
+);
+
+const NodeViz=({arch,col,active,size=32})=>{
+const clipPath=ARCH_VISUAL.get(arch.bin)?.clipPath||“circle(48%)”;
+return(
+<div style={{width:size,height:size,flexShrink:0,position:_rel,
+filter:active?`drop-shadow(0 0 8px ${col}cc)`:“none”,
+transition:“filter .4s”,animation:active?“pulseScale 1.5s ease-in-out infinite”:“none”}}>
+<div style={{position:_abs,inset:0,background:col,clipPath,opacity:active?.8:.4,transition:“opacity .4s”}}/>
+<div style={{position:_abs,inset:0,display:_fl,alignItems:_ac,justifyContent:_jc,
+fontSize:8,color:“rgba(0,0,0,.5)”,fontFamily:_mo,clipPath}}>{arch.bin.slice(0,3)}</div>
+</div>
+);
+};
+
+return(
+<div style={{background:“linear-gradient(145deg,#070a03,#050802)”,
+border:“1px solid #2a3a1a”,borderRadius:14,padding:“12px 14px”,marginBottom:14}}>
+<div style={{fontSize:9,color:”#4ade8066”,fontFamily:_mo,letterSpacing:2,marginBottom:10,textAlign:_tc}}>
+⊕ ТРАНСМУТАЦІЯ · XOR
+</div>
+<div style={{display:_fl,gap:10,alignItems:“flex-start”}}>
+{/* bit rows */}
+<div style={{flex:1,display:_fl,flexDirection:_fd,gap:3}}>
+<Row label="A" bin={a.bin} col={colA} op="⊕" dim={false}/>
+<Row label="B" bin={b.bin} col={colB} op="⊕" dim={false}/>
+<Row label="C" bin={c.bin} col={colC} dim={false}/>
+<div style={{height:1,background:“linear-gradient(to right,transparent,#3a4a2a,transparent)”,margin:“3px 0 3px 26px”}}/>
+<Row label="=" bin={abc} col={colR} dim={false}/>
+</div>
+{/* result archetype */}
+<div style={{width:64,flexShrink:0,display:_fl,flexDirection:_fd,alignItems:_ac,gap:5}}>
+{/* A + B + C → */}
+<div style={{display:_fl,gap:3,alignItems:_ac,marginBottom:2}}>
+{[{a,c:colA},{a:b,c:colB},{a:c,c:colC}].map(({a:ar,c:cl},i)=>(
+<React.Fragment key={i}>
+<NodeViz arch={ar} col={cl} active={phase===i} size={14}/>
+{i<2&&<span style={{fontSize:8,color:”#3a4a1a”,fontFamily:_mo}}>⊕</span>}
+</React.Fragment>
+))}
+</div>
+<div style={{fontSize:9,color:”#3a4a1a”,fontFamily:_mo}}>↓</div>
+<NodeViz arch={res} col={colR} active={flash} size={36}/>
+<div style={{fontSize:10,color:colR,fontFamily:_gs,fontWeight:_fw,textAlign:_tc,
+lineHeight:1.2,animation:flash?“fadeIn .3s ease”:“none”}}>{res.name}</div>
+<div style={{fontSize:9,color:colR+“88”,fontFamily:_mo}}>{abc}</div>
+</div>
+</div>
+</div>
+);
+}
+
 function IntroScreen({onStart,onSkipTutorial,onOpenAcademy}){
-  const[done,setDone]=useState(false);
-  const[diff,setDiff]=useState("normal");
-  const modes=[
-    {id:"novice",icon:"🌱",label:"Новачок",sub:"Більше підказок, ширші зони",col:"#4ade80"},
-    {id:"normal",icon:"⚗",label:"Алхімік",sub:"Стандартна складність",col:"#c8900a"},
-    {id:"hardcore",icon:"💀",label:"Адепт",sub:"Без знижок, всі виклики",col:"#e05050"},
-  ];
-  return(<div style={{position:_fix,inset:0,background:"#060401",display:_fl,alignItems:_ac,justifyContent:_jc,padding:16,animation:"fadeIn .8s ease"}}>
-    <div style={{position:_abs,inset:0,background:"radial-gradient(ellipse at 50% 35%, #c8900a09 0%, transparent 60%)",pointerEvents:_pn}}/>
-    <button onClick={onOpenAcademy} aria-label="Академія" style={{position:_abs,top:12,right:12,background:"transparent",border:"1px solid #7dcfff22",borderRadius:8,color:"#7dcfff88",padding:"5px 9px",cursor:_fc,fontSize:12,zIndex:10}}>🏛 база</button>
-    {!done&&<button onClick={()=>setDone(true)} style={{position:_abs,bottom:18,right:16,background:"transparent",border:"none",color:"#a08040",padding:"4px 10px",cursor:_fc,fontSize:12,fontFamily:_mo,zIndex:10,opacity:.6}}>пропустити ▶</button>}
-    <div style={{maxWidth:380,width:"100%",display:"flex",flexDirection:"column",gap:0}}>
-      {/* Card */}
-      <div style={{padding:"22px 22px 18px",background:"linear-gradient(160deg,#1a1406,#0f0c04)",borderRadius:"18px 18px 0 0",border:"1.5px solid #c8900a44",borderBottom:"none",boxShadow:"0 0 60px #c8900a18"}}>
-        <div style={{textAlign:_tc,marginBottom:16}}>
-          <div style={{fontSize:44,animation:"floatR 4s ease-in-out infinite",filter:"drop-shadow(0 0 16px #c8900aaa)",lineHeight:1,marginBottom:8}}>⚗</div>
-          <div style={{fontSize:11,letterSpacing:6,color:"#c89040",fontFamily:_mo,fontWeight:600,marginBottom:3}}>MAGNUM OPUS</div>
-          <div style={{fontSize:19,fontWeight:_fw,color:"#f0d060",fontFamily:_gs}}>Алхімічна Гра</div>
-          <div style={{width:50,height:1,background:"linear-gradient(to right,transparent,#c8900a,transparent)",margin:"8px auto 0"}}/>
-        </div>
-        <div style={{fontSize:14,lineHeight:1.8,color:"#e0c070",fontFamily:_gs,minHeight:120}}>
-          <Typewriter text={INTRO_TEXT} speed={22} onDone={()=>setDone(true)}/>
-        </div>
-      </div>
-      {/* Difficulty — shown after typewriter completes */}
-      {done&&(<div style={{padding:"14px 22px 20px",background:"linear-gradient(160deg,#141004,#0c0a02)",border:"1.5px solid #c8900a44",borderTop:"1px solid #2a1c08",borderRadius:"0 0 18px 18px",animation:"slideUp .3s ease",boxShadow:"0 8px 40px rgba(0,0,0,.6)"}}>
-        <div style={{fontSize:11,color:"#a07030",fontFamily:_mo,letterSpacing:2,marginBottom:10,textAlign:_tc}}>ОБЕРИ СКЛАДНІСТЬ</div>
-        <div style={{display:"flex",gap:6,marginBottom:14}}>
-          {modes.map(m=>(
-            <button key={m.id} onClick={()=>setDiff(m.id)} style={{flex:1,background:diff===m.id?`${m.col}18`:"#0c0902",border:`1.5px solid ${diff===m.id?m.col+"66":"#2a1a08"}`,borderRadius:10,padding:"9px 4px",cursor:_fc,textAlign:_tc,transition:"all .2s"}}>
-              <div style={{fontSize:18,marginBottom:3}}>{m.icon}</div>
-              <div style={{fontSize:12,fontWeight:diff===m.id?700:400,color:diff===m.id?m.col:"#a07040",fontFamily:_gs,lineHeight:1.2}}>{m.label}</div>
-              <div style={{fontSize:10,color:diff===m.id?m.col+"aa":"#6a4020",fontFamily:_mo,marginTop:2,lineHeight:1.3}}>{m.sub}</div>
-            </button>
-          ))}
-        </div>
-        <button onClick={()=>{_unlock();SFX.click();setTimeout(()=>onStart(diff),80);}} style={{width:"100%",background:`linear-gradient(135deg,#c8900a,#a06808)`,border:"none",borderRadius:12,padding:"14px",color:"#fff8e0",fontSize:15,fontFamily:_gs,fontWeight:_fw,cursor:_fc,boxShadow:"0 4px 24px #c8900a55",letterSpacing:.3}}>
-          РОЗПОЧАТИ ВЕЛИКЕ ДІЯННЯ ⚗
-        </button>
-        <button onClick={()=>{_unlock();SFX.click();setTimeout(()=>onSkipTutorial(diff),80);}} style={{width:"100%",background:"transparent",border:"none",marginTop:8,padding:"8px",color:"#c89040",fontSize:12,fontFamily:_gs,cursor:_fc,opacity:.7}}>
-          Пропустити навчання →
-        </button>
-      </div>)}
-      {!done&&<div style={{textAlign:_tc,fontSize:12,color:"#c89040",opacity:.4,padding:"12px 0",animation:"pulse 1.5s ease-in-out infinite",background:"linear-gradient(160deg,#141004,#0c0a02)",borderRadius:"0 0 18px 18px",border:"1.5px solid #c8900a44",borderTop:"1px solid #2a1c08"}}>…</div>}
-    </div>
+const[done,setDone]=useState(false);
+const[diff,setDiff]=useState(“normal”);
+const modes=[
+{id:“novice”,icon:“🌱”,label:“Новачок”,sub:“Більше підказок, ширші зони”,col:”#4ade80”},
+{id:“normal”,icon:“⚗”,label:“Алхімік”,sub:“Стандартна складність”,col:”#c8900a”},
+{id:“hardcore”,icon:“💀”,label:“Адепт”,sub:“Без знижок, всі виклики”,col:”#e05050”},
+];
+return(<div style={{position:_fix,inset:0,background:”#060401”,display:_fl,alignItems:_ac,justifyContent:_jc,padding:16,animation:“fadeIn .8s ease”,overflowY:“auto”}}>
+<div style={{position:_abs,inset:0,background:“radial-gradient(ellipse at 50% 35%, #c8900a09 0%, transparent 60%)”,pointerEvents:_pn}}/>
+<button onClick={onOpenAcademy} aria-label=“Академія” style={{position:_abs,top:12,right:12,background:“transparent”,border:“1px solid #7dcfff22”,borderRadius:8,color:”#7dcfff88”,padding:“5px 9px”,cursor:_fc,fontSize:12,zIndex:10}}>🏛 база</button>
+{!done&&<button onClick={()=>setDone(true)} style={{position:_abs,bottom:18,right:16,background:“transparent”,border:“none”,color:”#a08040”,padding:“4px 10px”,cursor:_fc,fontSize:12,fontFamily:_mo,zIndex:10,opacity:.6}}>пропустити ▶</button>}
+<div style={{maxWidth:380,width:“100%”,display:_fl,flexDirection:_fd,gap:0,position:_rel,zIndex:1}}>
+{/* Card */}
+<div style={{padding:“22px 22px 16px”,background:“linear-gradient(160deg,#1a1406,#0f0c04)”,borderRadius:“18px 18px 0 0”,border:“1.5px solid #c8900a44”,borderBottom:“none”,boxShadow:“0 0 60px #c8900a18”}}>
+<div style={{textAlign:_tc,marginBottom:14}}>
+<div style={{fontSize:44,animation:“floatR 4s ease-in-out infinite”,filter:“drop-shadow(0 0 16px #c8900aaa)”,lineHeight:1,marginBottom:8}}>⚗</div>
+<div style={{fontSize:11,letterSpacing:6,color:”#c89040”,fontFamily:_mo,fontWeight:600,marginBottom:3}}>MAGNUM OPUS</div>
+<div style={{fontSize:19,fontWeight:_fw,color:”#f0d060”,fontFamily:_gs}}>Алхімічна Гра</div>
+<div style={{width:50,height:1,background:“linear-gradient(to right,transparent,#c8900a,transparent)”,margin:“8px auto 0”}}/>
+</div>
+{/* XOR live demo */}
+<XorLiveViz/>
+<div style={{fontSize:14,lineHeight:1.8,color:”#e0c070”,fontFamily:_gs,minHeight:80}}>
+<Typewriter text={INTRO_TEXT} speed={22} onDone={()=>setDone(true)}/>
+</div>
+</div>
+{/* Difficulty */}
+{done&&(<div style={{padding:“14px 22px 20px”,background:“linear-gradient(160deg,#141004,#0c0a02)”,border:“1.5px solid #c8900a44”,borderTop:“1px solid #2a1c08”,borderRadius:“0 0 18px 18px”,animation:“slideUp .3s ease”,boxShadow:“0 8px 40px rgba(0,0,0,.6)”}}>
+<div style={{fontSize:11,color:”#a07030”,fontFamily:_mo,letterSpacing:2,marginBottom:10,textAlign:_tc}}>ОБЕРИ СКЛАДНІСТЬ</div>
+<div style={{display:_fl,gap:6,marginBottom:14}}>
+{modes.map(m=>(
+<button key={m.id} onClick={()=>setDiff(m.id)} style={{flex:1,background:diff===m.id?`${m.col}18`:”#0c0902”,border:`1.5px solid ${diff===m.id?m.col+"66":"#2a1a08"}`,borderRadius:10,padding:“9px 4px”,cursor:_fc,textAlign:_tc,transition:“all .2s”}}>
+<div style={{fontSize:18,marginBottom:3}}>{m.icon}</div>
+<div style={{fontSize:12,fontWeight:diff===m.id?700:400,color:diff===m.id?m.col:”#a07040”,fontFamily:_gs,lineHeight:1.2}}>{m.label}</div>
+<div style={{fontSize:10,color:diff===m.id?m.col+“aa”:”#6a4020”,fontFamily:_mo,marginTop:2,lineHeight:1.3}}>{m.sub}</div>
+</button>
+))}
+</div>
+<button onClick={()=>{_unlock();SFX.click();setTimeout(()=>onStart(diff),80);}} style={{width:“100%”,background:`linear-gradient(135deg,#c8900a,#a06808)`,border:“none”,borderRadius:12,padding:“14px”,color:”#fff8e0”,fontSize:15,fontFamily:_gs,fontWeight:_fw,cursor:_fc,boxShadow:“0 4px 24px #c8900a55”,letterSpacing:.3}}>
+РОЗПОЧАТИ ВЕЛИКЕ ДІЯННЯ ⚗
+</button>
+<button onClick={()=>{_unlock();SFX.click();setTimeout(()=>onSkipTutorial(diff),80);}} style={{width:“100%”,background:“transparent”,border:“none”,marginTop:8,padding:“8px”,color:”#c89040”,fontSize:12,fontFamily:_gs,cursor:_fc,opacity:.7}}>
+Пропустити навчання →
+</button>
+</div>)}
+{!done&&<div style={{textAlign:_tc,fontSize:12,color:”#c89040”,opacity:.4,padding:“12px 0”,animation:“pulse 1.5s ease-in-out infinite”,background:“linear-gradient(160deg,#141004,#0c0a02)”,borderRadius:“0 0 18px 18px”,border:“1.5px solid #c8900a44”,borderTop:“1px solid #2a1c08”}}>…</div>}
+</div>
+
   </div>);
 }
 
@@ -4092,12 +4292,7 @@ return(<div style={{width:_100,height:“100dvh”,background:”#040300”,colo
 
     {diff==="novice"&&<WarmthMeter ingredients={gs.ingredients} requiredBins={stage.required} stageCol={stageCol}/>}
 
-    {gs.ingredients.length>0&&preview&&(<div style={{background:"#0c0904",border:`1.5px solid ${ac(preview.arch.who,preview.arch.where,preview.arch.when)}44`,borderRadius:10,padding:"8px 13px",marginBottom:8,display:_fl,alignItems:_ac,gap:10,animation:"revealIn .25s ease"}}>
-      <span style={{fontSize:13,color:"#b07840",fontFamily:_mo,letterSpacing:1}}>⚗ РЕЗУЛЬТАТ:</span>
-      <div style={{width:10,height:10,borderRadius:_br50,background:ac(preview.arch.who,preview.arch.where,preview.arch.when),flexShrink:0,boxShadow:`0 0 8px ${ac(preview.arch.who,preview.arch.where,preview.arch.when)}`}}/>
-      <span style={{color:ac(preview.arch.who,preview.arch.where,preview.arch.when),fontFamily:_gs,fontSize:13,fontWeight:_fw}}>{preview.arch.name}</span>
-      <span style={{color:"#b07840",fontFamily:_gs,fontSize:13,fontStyle:_fi,flex:1}}>— {preview.arch.key}</span>
-    </div>)}
+    {gs.ingredients.length>0&&preview&&(()=>{const pA=gs.ingredients[0],pB=gs.ingredients[1],pC=gs.ingredients[2],cA=ac(pA.who,pA.where,pA.when),cB=pB?ac(pB.who,pB.where,pB.when):"#3a2c18",cC=pC?ac(pC.who,pC.where,pC.when):"#3a2c18",cR=ac(preview.arch.who,preview.arch.where,preview.arch.when);const brow=(lbl,bin,col,bold)=>(<div style={{display:"flex",alignItems:"center",gap:3,marginBottom:2}}><span style={{fontSize:9,color:col,fontFamily:"monospace",width:16,textAlign:"right",flexShrink:0,fontWeight:bold?700:400}}>{lbl}</span><div style={{display:"flex",gap:1.5,marginLeft:2}}>{bin.split("").map((b,i)=><span key={i} style={{display:"inline-flex",width:13,height:13,borderRadius:2,alignItems:"center",justifyContent:"center",background:b==="1"?col+"28":"transparent",border:"1px solid "+(b==="1"?col+"77":"#241808"),fontSize:10,color:b==="1"?col:"#3a2810",fontFamily:"monospace",fontWeight:b==="1"?700:400}}>{b}</span>)}</div></div>);return(<div style={{background:"linear-gradient(145deg,#0a0e04,#060802)",border:"1.5px solid "+cR+"44",borderRadius:12,padding:"9px 11px",marginBottom:8,animation:"revealIn .25s ease"}}><div style={{display:"flex",gap:10,alignItems:"center"}}><div style={{flex:1}}>{brow("A",pA.bin,cA,false)}{pB&&brow("B",pB.bin,cB,false)}{pC&&brow("C",pC.bin,cC,false)}<div style={{height:1,background:"linear-gradient(to right,transparent,#2a3818,transparent)",margin:"2px 0 2px 18px"}}/>{brow("=",preview.bin,cR,true)}</div><div style={{flexShrink:0,textAlign:"center",minWidth:68}}><div style={{width:32,height:32,borderRadius:"50%",background:"radial-gradient(circle,"+cR+"44,"+cR+"18)",border:"1.5px solid "+cR+"77",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 4px",fontSize:9,color:cR,fontFamily:"monospace"}}>{preview.bin}</div><div style={{fontSize:12,color:cR,fontFamily:"Georgia,serif",fontWeight:700,lineHeight:1.2}}>{preview.arch.name}</div><div style={{fontSize:10,color:cR+"88",fontFamily:"monospace",marginTop:2,fontStyle:"italic",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",maxWidth:70}}>{preview.arch.key.split(",")[0]}</div></div></div></div>);})()}
     {gs.ingredients.length>0&&!preview&&(<div style={{background:"#0c0904",border:"1px solid #1c1208",borderRadius:10,padding:"7px 13px",marginBottom:8,fontSize:13,color:"#b07840",fontFamily:_mo}}>⚗ Додай ще {3-gs.ingredients.length} архетип{3-gs.ingredients.length===1?"":"и"} для перегляду результату</div>)}
 
     {gs.ingredients.length>0&&<div style={{background:"#0a0802",border:"1px solid #1c1208",borderRadius:9,padding:"5px 10px",marginBottom:6,display:_fl,gap:10,alignItems:_ac,justifyContent:_jc,flexWrap:"wrap"}}>
@@ -4149,35 +4344,131 @@ return(<div style={{width:_100,height:“100dvh”,background:”#040300”,colo
 {panel==="achievements"&&<AchPanel gs={gs} onClose={()=>setPanel(null)}/>}
 {panel==="recovery"&&<RecoveryPanel gs={gs} onAction={next=>{upGs(()=>next);}} onClose={()=>setPanel(null)}/>}
 {panel==="academy"&&<AcademyPanel gs={gs} onClose={()=>setPanel(null)} onUpdateGs={upGs}/>}
-{panel==="menu"&&(
-  <div style={{position:"fixed",inset:0,background:"rgba(1,0,0,.92)",zIndex:800,display:_fl,alignItems:"flex-end",justifyContent:_jc}} onClick={()=>setPanel(null)}>
-    <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:480,background:"linear-gradient(160deg,#1a1508,#0e0b03)",borderRadius:"20px 20px 0 0",border:"1px solid #c8900a33",borderBottom:"none",padding:"18px 16px 32px",animation:"sheetIn .28s cubic-bezier(.32,.72,0,1)"}}>
-      <div style={{width:32,height:4,background:"#c8900a44",borderRadius:2,margin:"0 auto 16px"}}/>
-      <div style={{fontSize:12,color:"#a07030",fontFamily:_mo,letterSpacing:2,marginBottom:14,textAlign:_tc}}>МЕНЮ АЛХІМІКА</div>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:14}}>
+{panel==="menu"&&(()=>{
+  // XOR visualiser data
+  const ings=gs.ingredients;
+  const slots=[0,1,2].map(i=>ings[i]||null);
+  const ab=slots[0]&&slots[1]?xorBin(slots[0].bin,slots[1].bin):null;
+  const abc=ab&&slots[2]?xorBin(ab,slots[2].bin):null;
+  const resultArch=abc?ga(abc):null;
+  const resultCol=resultArch?ac(resultArch.who,resultArch.where,resultArch.when):"#a07040";
+  const BIT=({b,hi})=>(<span style={{display:"inline-flex",alignItems:_ac,justifyContent:_jc,width:16,height:16,borderRadius:3,background:b==="1"?(hi+"28"):"transparent",border:`1px solid ${b==="1"?hi+"88":"#2a1c0a"}`,fontSize:11,color:b==="1"?hi:"#5a4020",fontFamily:_mo,fontWeight:b==="1"?700:400,flexShrink:0}}>{b}</span>);
+  const BinRow=({label,bin,col,bold})=>(<div style={{display:_fl,alignItems:_ac,gap:4,marginBottom:3}}><span style={{fontSize:10,color:col,fontFamily:_mo,width:20,textAlign:"right",opacity:.8,flexShrink:0,fontWeight:bold?700:400}}>{label}</span><div style={{display:_fl,gap:2}}>{bin.split("").map((b,i)=><BIT key={i} b={b} hi={col}/>)}</div></div>);
+  return(
+  <div style={{position:"fixed",inset:0,background:"rgba(1,0,0,.88)",zIndex:800,display:_fl,alignItems:"flex-end",justifyContent:_jc}} onClick={()=>setPanel(null)}>
+    <div onClick={e=>e.stopPropagation()} style={{width:"100%",maxWidth:480,background:"linear-gradient(160deg,#1c1608,#0e0b03)",borderRadius:"22px 22px 0 0",border:"1px solid #c8900a33",borderBottom:"none",padding:"16px 15px 28px",animation:"sheetIn .28s cubic-bezier(.32,.72,0,1)",maxHeight:"92vh",overflowY:"auto"}}>
+
+      {/* handle */}
+      <div style={{width:36,height:4,background:"#c8900a44",borderRadius:2,margin:"0 auto 14px"}}/>
+
+      {/* ── СТАТУС ─────────────────────────────────── */}
+      <div style={{display:_fl,alignItems:_ac,gap:10,padding:"10px 12px",background:"#09080255",border:"1px solid #1c1408",borderRadius:13,marginBottom:12}}>
+        <div style={{width:38,height:38,borderRadius:_br50,background:`radial-gradient(circle at 38% 38%,${stageCol}77,${stageCol}18)`,border:`1.5px solid ${stageCol}66`,display:_fl,alignItems:_ac,justifyContent:_jc,fontSize:18,flexShrink:0}}>{stage.sym}</div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontSize:11,color:stageCol,fontFamily:_mo,letterSpacing:1.5,marginBottom:2}}>СТАДІЯ {gs.stage}/10 · {stage.name.toUpperCase()}</div>
+          <div style={{display:_fl,gap:8,alignItems:_ac,flexWrap:"wrap"}}>
+            <span style={{fontSize:12,color:"#c09028",fontFamily:_mo}}>✦{gs.purity}%</span>
+            <span style={{fontSize:12,color:"#a07840",fontFamily:_mo}}>⚗{gs.experiments}</span>
+            {gs.streak>=3&&<span style={{fontSize:12,color:gs.streak>=5?"#f0a030":"#4ade80",fontFamily:_mo}}>{gs.streak>=5?"🌊":"✨"}{gs.streak} серія</span>}
+          </div>
+        </div>
+        <div style={{display:_fl,gap:4,flexDirection:_fd,alignItems:"flex-end"}}>
+          {[["☿",gs.resources.mercury,"#7dcfff"],["🔥",gs.resources.sulfur,"#e06060"],["🧂",gs.resources.salt,"#a8a898"],["💧",gs.resources.azoth,"#c084fc"]].map(([ic,v,col])=>(
+            <div key={ic} style={{display:_fl,alignItems:_ac,gap:3,fontSize:11,color:col,fontFamily:_mo}}>
+              <span style={{fontSize:12}}>{ic}</span><span style={{fontWeight:_fw,minWidth:24,textAlign:"right"}}>{v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── XOR ТРАНСМУТАЦІЯ ───────────────────────── */}
+      <div style={{background:"linear-gradient(135deg,#0a0e04,#060804)",border:"1px solid #2a3818",borderRadius:13,padding:"11px 12px",marginBottom:12}}>
+        <div style={{fontSize:10,color:"#4ade8088",fontFamily:_mo,letterSpacing:2,marginBottom:10}}>⊕ XOR ТРАНСМУТАЦІЯ</div>
+        <div style={{display:_fl,gap:10,alignItems:"flex-start"}}>
+          <div style={{flex:1}}>
+            {slots.map((s,i)=>{
+              const lbl=[" A"," B"," C"][i];
+              const col=s?ac(s.who,s.where,s.when):"#3a2c18";
+              return s?(
+                <BinRow key={i} label={lbl} bin={s.bin} col={col}/>
+              ):(
+                <div key={i} style={{display:_fl,alignItems:_ac,gap:4,marginBottom:3,opacity:.35}}>
+                  <span style={{fontSize:10,color:"#5a4020",fontFamily:_mo,width:20,textAlign:"right"}}>{lbl}</span>
+                  <div style={{display:_fl,gap:2}}>{[0,1,2,3,4,5].map(j=><BIT key={j} b="?" hi="#5a4020"/>)}</div>
+                </div>
+              );
+            })}
+            {ab&&<div style={{height:1,background:"#2a3818",margin:"3px 0 3px 24px"}}/>}
+            {ab&&!abc&&<BinRow label="A⊕B" bin={ab} col="#8ade60"/>}
+            {abc&&(<>
+              <BinRow label="A⊕B" bin={ab} col="#8ade6066"/>
+              <div style={{height:1,background:"#2a3818",margin:"3px 0 3px 24px"}}/>
+              <BinRow label="=" bin={abc} col={resultCol} bold/>
+            </>)}
+          </div>
+          <div style={{width:80,flexShrink:0,textAlign:_tc}}>
+            {resultArch?(
+              <div style={{animation:"fadeIn .4s ease"}}>
+                <div style={{width:44,height:44,borderRadius:_br50,background:`radial-gradient(circle,${resultCol}55,${resultCol}18)`,border:`1.5px solid ${resultCol}88`,display:_fl,alignItems:_ac,justifyContent:_jc,margin:"0 auto 6px",boxShadow:`0 0 14px ${resultCol}44`,fontSize:10,color:resultCol,fontFamily:_mo,fontWeight:_fw}}>{abc}</div>
+                <div style={{fontSize:12,color:resultCol,fontFamily:_gs,fontWeight:_fw,lineHeight:1.3}}>{resultArch.name}</div>
+                <div style={{fontSize:10,color:resultCol+"99",fontFamily:_mo,marginTop:3}}>{resultArch.who}·{resultArch.where}·{resultArch.when}</div>
+              </div>
+            ):(
+              <div style={{opacity:.3}}>
+                <div style={{width:44,height:44,borderRadius:_br50,border:"1px dashed #3a2c18",display:_fl,alignItems:_ac,justifyContent:_jc,margin:"0 auto 6px",fontSize:18}}>?</div>
+                <div style={{fontSize:11,color:"#5a4020",fontFamily:_gs}}>Додай 3 інгредієнти</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ── ОСНОВНІ РОЗДІЛИ ──────────────────────── */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}}>
         {[
-          {icon:"🏆",label:"Досягнення",badge:gs.earned.length||null,fn:()=>setPanel("achievements"),col:"#d4a020"},
-          {icon:"🌹",label:"Кодекс",fn:()=>{setPanel(null);setCodexOpen(true);},col:"#c8900a"},
-          {icon:"🏛",label:"Академія",fn:()=>setPanel("academy"),col:"#7dcfff"},
-          {icon:"🔍",label:"Легенда",fn:()=>{setPanel(null);setLegendOpen(true);},col:"#4ade80"},
-          {icon:"?",label:"Допомога",fn:()=>{setPanel(null);setQuickHelp(true);},col:"#e8c060"},
-          {icon:"🔄",label:"Нова гра",fn:()=>{setPanel(null);setModal({type:"confirm_reset"});},col:"#e07050"},
-        ].map(({icon,label,badge,fn,col})=>(
-          <button key={label} onClick={fn} style={{background:"#0c0902",border:`1px solid ${col}33`,borderRadius:12,padding:"13px 6px",cursor:_fc,textAlign:_tc,transition:"all .18s",display:"flex",flexDirection:"column",alignItems:"center",gap:5,position:_rel}}>
-            <span style={{fontSize:22}}>{icon}</span>
-            <span style={{fontSize:12,color:col,fontFamily:_gs,lineHeight:1.2,fontWeight:500}}>{label}</span>
-            {badge>0&&<span style={{position:"absolute",top:5,right:5,minWidth:15,height:15,borderRadius:8,background:col,fontSize:9,color:"#000",display:"flex",alignItems:_ac,justifyContent:_jc,fontFamily:_mo,fontWeight:700,padding:"0 2px"}}>{badge}</span>}
+          {icon:"🏛",label:"Академія",sub:"Симулятор · Архів",fn:()=>setPanel("academy"),col:"#7dcfff"},
+          {icon:"🏆",label:"Досягнення",sub:`${gs.earned.length} з ${Object.keys(ACH).length} зароблено`,badge:gs.earned.length||null,fn:()=>setPanel("achievements"),col:"#d4a020"},
+          {icon:"🌹",label:"Кодекс Троянди",sub:"Про Магнум Опус",fn:()=>{setPanel(null);setCodexOpen(true);},col:"#c8900a"},
+          {icon:"🔍",label:"Легенда",sub:"Всі 64 архетипи",fn:()=>{setPanel(null);setLegendOpen(true);},col:"#4ade80"},
+        ].map(({icon,label,sub,badge,fn,col})=>(
+          <button key={label} onClick={fn} style={{background:"#0c0902",border:`1px solid ${col}33`,borderRadius:13,padding:"12px 10px",cursor:_fc,textAlign:"left",transition:"all .15s",display:_fl,gap:10,alignItems:_ac,position:_rel}}>
+            <span style={{fontSize:24,flexShrink:0}}>{icon}</span>
+            <div style={{minWidth:0}}>
+              <div style={{fontSize:13,color:col,fontFamily:_gs,fontWeight:_fw,lineHeight:1.2}}>{label}</div>
+              <div style={{fontSize:11,color:"#a07840",fontFamily:_mo,marginTop:2,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{sub}</div>
+            </div>
+            {badge>0&&<span style={{position:"absolute",top:7,right:7,minWidth:16,height:16,borderRadius:8,background:col,fontSize:9,color:"#030100",display:_fl,alignItems:_ac,justifyContent:_jc,fontFamily:_mo,fontWeight:700,padding:"0 3px"}}>{badge}</span>}
           </button>
         ))}
       </div>
-      <div style={{padding:"11px 14px",background:"#09080233",border:"1px solid #1c1408",borderRadius:10,display:"flex",gap:10,alignItems:"center"}}>
-        <button onClick={()=>{const ns=!sound;setSound(ns);Music.setEnabled(ns);if(ns){_unlock();Music.startBackground(STAGE_SEASON[(gs.stage-1)%STAGE_SEASON.length]);}else Music.stopAll();}} style={{background:"transparent",border:"1px solid #2a1a08",borderRadius:6,color:sound?"#c8900a":"#4a3018",padding:"4px 7px",cursor:_fc,fontSize:15}}>{sound?"🔊":"🔇"}</button>
-        <input type="range" min={0} max={1} step={0.05} value={sound?volume:0} onChange={e=>{const v=parseFloat(e.target.value);if(v>0&&!sound){setSound(true);Music.setEnabled(true);_unlock();}setVolume(v);setMasterVol(v);Music.setVolume(v);}} style={{flex:1,accentColor:"#c8900a",cursor:_fc}}/>
-        <span style={{fontSize:12,color:"#c8900a",fontFamily:_mo,minWidth:34}}>{Math.round((sound?volume:0)*100)}%</span>
+
+      {/* ── ДРУГОРЯДНЕ ───────────────────────────── */}
+      <div style={{display:_fl,gap:7,marginBottom:12}}>
+        {[
+          {icon:"?",label:"Допомога",fn:()=>{setPanel(null);setQuickHelp(true);},col:"#e8c060"},
+          {icon:"📜",label:"Грімуар",fn:()=>{upGs(p=>({...p,grimoireOpened:true}));setPanel("grimoire");},col:stageCol},
+        ].map(({icon,label,fn,col})=>(
+          <button key={label} onClick={fn} style={{flex:1,background:"#0c0902",border:`1px solid ${col}22`,borderRadius:10,padding:"9px 8px",cursor:_fc,display:_fl,alignItems:_ac,justifyContent:_jc,gap:6,color:col,fontFamily:_gs,fontSize:13}}>
+            <span style={{fontSize:16}}>{icon}</span><span>{label}</span>
+          </button>
+        ))}
       </div>
+
+      {/* ── ЗВУК ─────────────────────────────────── */}
+      <div style={{display:_fl,gap:9,alignItems:_ac,padding:"9px 12px",background:"#09080233",border:"1px solid #1c1408",borderRadius:10,marginBottom:12}}>
+        <button onClick={()=>{const ns=!sound;setSound(ns);Music.setEnabled(ns);if(ns){_unlock();Music.startBackground(STAGE_SEASON[(gs.stage-1)%STAGE_SEASON.length]);}else Music.stopAll();}} style={{background:"transparent",border:"1px solid #2a1a08",borderRadius:7,color:sound?"#c8900a":"#4a3018",padding:"5px 8px",cursor:_fc,fontSize:16,minWidth:36,display:_fl,alignItems:_ac,justifyContent:_jc}}>{sound?"🔊":"🔇"}</button>
+        <input type="range" min={0} max={1} step={0.05} value={sound?volume:0} onChange={e=>{const v=parseFloat(e.target.value);if(v>0&&!sound){setSound(true);Music.setEnabled(true);_unlock();}setVolume(v);setMasterVol(v);Music.setVolume(v);}} style={{flex:1,accentColor:"#c8900a",cursor:_fc}}/>
+        <span style={{fontSize:12,color:"#c8900a",fontFamily:_mo,minWidth:34,textAlign:"right"}}>{Math.round((sound?volume:0)*100)}%</span>
+      </div>
+
+      {/* ── НОВА ГРА ─────────────────────────────── */}
+      <button onClick={()=>{setPanel(null);setModal({type:"confirm_reset"});}} style={{width:"100%",background:"transparent",border:"1px solid #6a201844",borderRadius:10,padding:"10px",cursor:_fc,color:"#c05030",fontSize:13,fontFamily:_gs,display:_fl,alignItems:_ac,justifyContent:_jc,gap:7,opacity:.7,transition:"opacity .15s"}}>
+        <span style={{fontSize:15}}>🔄</span> Нова гра
+      </button>
+
     </div>
   </div>
-)}
+);})()}
 {modal?.type==="confirm_reset"&&(
   <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:900,display:"flex",alignItems:"center",justifyContent:"center",padding:16}} onClick={()=>setModal(null)}>
     <div onClick={e=>e.stopPropagation()} style={{background:"linear-gradient(145deg,#1c1208,#0e0c04)",border:"2px solid #e0503366",borderRadius:18,padding:"28px 22px",maxWidth:320,width:"100%",textAlign:"center",boxShadow:"0 0 50px rgba(0,0,0,.9)"}}>
